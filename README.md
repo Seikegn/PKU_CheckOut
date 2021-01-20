@@ -19,7 +19,7 @@
 本软件目前只支持64位系统，脚本没有限制。
 
 自动效果：
-![alt text](http:./Auto.png)
+![](./Auto.png)
 
 手动效果：
-![alt text](http:./Manual.png)
+![](./Manual.png)
