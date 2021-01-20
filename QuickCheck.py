@@ -2,16 +2,12 @@
 #Author: Seikegn Yang
 #Contact: seikegn_yang@163.com
 #Github: https://github.com/Seikegn
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.options import Options
 from urllib.parse import quote
-from urllib import request
 import time
 import datetime
 import sys
