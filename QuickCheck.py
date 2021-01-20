@@ -204,9 +204,9 @@ if __name__ == '__main__':
     except:
         print('MyInfo.txt填写有误，请检查')
 
-    #chrome_options = Options()
-    #chrome_options.add_argument('--headless')
-    #chrome_options.add_argument('--disable-gpu')
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--disable-gpu')
     driver = webdriver.Chrome(os.path.join(base,'chromedriver.exe'))#,chrome_options=chrome_options)
     if auto == 1:
         print('\n正在自动报备')
