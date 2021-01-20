@@ -61,6 +61,16 @@ def go_to_submission():
     WebDriverWait(driver, 5).until(
         EC.visibility_of_element_located((By.CLASS_NAME, 'el-input__inner')))
 
+def check_pop():
+    try:
+        pop = WebDriverWait(driver, 5).until(
+        EC.visibility_of_element_located((By.XPATH, '//div[@class="lightbox_fore ng-scope" and @id="bizTip"]')))
+        close = pop.find_element_by_xpath('//a[@class="btn" and contains(text(),"我知道了")]')
+        close.click()
+        time.sleep(1)
+    except:
+        pass
+
 def locate_ul():
     all_uls = driver.find_elements_by_xpath('//ul[contains(@class,"el-scrollbar__view el-select-dropdown__list")]')
     time.sleep(1)
@@ -130,6 +140,7 @@ def finish():
 
 def submit():
     login(Info_Dict['账号'], Info_Dict['密码'])
+    check_pop()
     go_to_simso()
     go_to_submission()
     loci = select_input()
@@ -193,34 +204,35 @@ if __name__ == '__main__':
     except:
         print('MyInfo.txt填写有误，请检查')
 
-    chrome_options = Options()
-    chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--disable-gpu')
-    driver = webdriver.Chrome(os.path.join(base,'chromedriver.exe'),chrome_options=chrome_options)
+    #chrome_options = Options()
+    #chrome_options.add_argument('--headless')
+    #chrome_options.add_argument('--disable-gpu')
+    driver = webdriver.Chrome(os.path.join(base,'chromedriver.exe'))#,chrome_options=chrome_options)
     if auto == 1:
         print('\n正在自动报备')
         try:
             submit()
         except:
             print('今日已进行过报备或自动报备失败，若后续显示的“提交状态”为“未提交”，请到门户检查')
-        
+        time.sleep(2)
         print('正在跟踪审核结果')
-        state = check()
+        
         while True:
             this_moment = time.strftime('%H:%M:%S')
+            state = check()
             if state == '审核通过':
+                print('{0}-已确认审核通过'.format(this_moment))
                 driver.quit()
                 break
-                print('{0}-已确认审核通过'.format(this_moment))
             print('{0}-审核未通过'.format(this_moment))
             print('接下来每隔三十分钟检查一次审核状态')
             time.sleep(1800)
-            try:
+            '''try:
                 print('{0}-仍在登录状态直接进行检查'.format(this_moment))
                 state = check_today()
             except:
                 print('{0}-已断开，重新登录进行检查'.format(this_moment))
-                state = check()
+                state = check()'''
             
     else:
         while True:
