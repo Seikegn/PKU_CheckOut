@@ -1,3 +1,4 @@
+#学校网站细节已删去，仅留框架
 # -*- coding: utf-8
 #Author: Seikegn Yang
 #Contact: seikegn_yang@163.com
@@ -18,57 +19,54 @@ def login(userName, password, retry=0):
     if retry == 3:
         raise Exception('门户登录失败')
 
-    print('门户登陆中...')
-
-    appID = 'portal2017'
-    iaaaUrl = 'https://iaaa.pku.edu.cn/iaaa/oauth.jsp'
-    appName = quote('北京大学校内信息门户新版')
-    redirectUrl = 'https://portal.pku.edu.cn/portal2017/ssoLogin.do'
-    driver.get('https://portal.pku.edu.cn/portal2017/')
+    appID = ''
+    iaaaUrl = ''
+    appName = quote('')
+    redirectUrl = ''
+    driver.get('')
     driver.get(
         f'{iaaaUrl}?appID={appID}&appName={appName}&redirectUrl={redirectUrl}')
     WebDriverWait(driver, 5).until(
-        EC.visibility_of_element_located((By.ID, 'logon_button')))
-    driver.find_element_by_id('user_name').send_keys(userName)
+        EC.visibility_of_element_located((By.ID, '')))
+    driver.find_element_by_id('').send_keys(userName)
     time.sleep(0.1)
-    driver.find_element_by_id('password').send_keys(password)
+    driver.find_element_by_id('').send_keys(password)
     time.sleep(0.1)
-    driver.find_element_by_id('logon_button').click()
+    driver.find_element_by_id('').click()
     try:
         WebDriverWait(driver,
-                      5).until(EC.visibility_of_element_located((By.ID, 'all')))
-        print('门户登录成功！')
+                      5).until(EC.visibility_of_element_located((By.ID, '')))
     except:
         print('Retrying...')
         login(userName, password, retry + 1)
 
 def go_to_simso():
-    driver.find_element_by_id('all').click()
+    driver.find_element_by_id('').click()
     WebDriverWait(driver, 5).until(
-        EC.visibility_of_element_located((By.ID, 'tag_s_stuCampusExEnReq')))
-    driver.find_element_by_id('tag_s_stuCampusExEnReq').click()
+        EC.visibility_of_element_located((By.ID, '')))
+    driver.find_element_by_id('').click()
     time.sleep(1)
     driver.switch_to.window(driver.window_handles[-1])
     WebDriverWait(driver, 5).until(
-        EC.visibility_of_element_located((By.CLASS_NAME, 'el-card__body')))
+        EC.visibility_of_element_located((By.CLASS_NAME, '')))
 
 def go_to_submission():
-    driver.find_element_by_xpath('//div[@class="el-card__body"]/span[contains(text(), "出入校申请")]/..').click()
+    driver.find_element_by_xpath('').click()
     WebDriverWait(driver, 5).until(
-        EC.visibility_of_element_located((By.CLASS_NAME, 'el-input__inner')))
+        EC.visibility_of_element_located((By.CLASS_NAME, '')))
 
 def check_pop():
     try:
         pop = WebDriverWait(driver, 5).until(
-        EC.visibility_of_element_located((By.XPATH, '//div[@class="lightbox_fore ng-scope" and @id="bizTip"]')))
-        close = pop.find_element_by_xpath('//a[@class="btn" and contains(text(),"我知道了")]')
+        EC.visibility_of_element_located((By.XPATH, '')))
+        close = pop.find_element_by_xpath('')
         close.click()
         time.sleep(1)
     except:
         pass
 
 def locate_ul():
-    all_uls = driver.find_elements_by_xpath('//ul[contains(@class,"el-scrollbar__view el-select-dropdown__list")]')
+    all_uls = driver.find_elements_by_xpath('')
     time.sleep(1)
     for ul in all_uls:
         if len(ul.text) > 0:
@@ -78,26 +76,25 @@ def make_selection(input_locus, value):
     input_locus.click()
     try:
         ul = locate_ul()
-        ul.find_element_by_xpath(f'./li/span[contains(text(),"{value}")]').click()
+        ul.find_element_by_xpath(f'"{value}"').click()
     except:
         input_locus.clear()
         input_locus.send_keys(value)
         
 def add_gate():
-    input_loci = driver.find_elements_by_class_name('el-input__inner')
+    input_loci = driver.find_elements_by_class_name('')
     for input_locus in input_loci:
         label = input_locus.find_element_by_xpath('./../../../..')
         if label.text == '终点校门':
             print('添加终点校门...')
             input_locus.click()
             ul = locate_ul()
-            ul.find_element_by_xpath(f'''.//li/span[contains(text(),"{Info_Dict['终点校门']}")]''').click()
+            ul.find_element_by_xpath(f'''''').click()
             time.sleep(0.1)
 
 def select_input():
-    input_loci = driver.find_elements_by_class_name('el-input__inner')
-    select_dict = {'出入校起点':Info_Dict['出入校起点'],'出入校终点':Info_Dict['出入校终点'],'出入校事由':Info_Dict['出入校事由'],'园区':Info_Dict['园区'],\
-        '邮箱':Info_Dict['邮箱'],'手机号':Info_Dict['手机号'],'宿舍楼':Info_Dict['宿舍楼'],'宿舍房间号':Info_Dict['宿舍房间号']}
+    input_loci = driver.find_elements_by_class_name('')
+    select_dict = {}
     for input_locus in input_loci:
         label = input_locus.find_element_by_xpath('./../../../..')
         for query, value in select_dict.items():    
@@ -115,7 +112,7 @@ def make_filling(input_locus, value):
     
 def fill_input():
     input_loci = driver.find_elements_by_class_name('el-textarea__inner')
-    fill_dict =  {'出入校具体事项':Info_Dict['出入校具体事项'],'基本轨迹':Info_Dict['基本轨迹']}
+    fill_dict =  {}
     for input_locus in input_loci:
         label = input_locus.find_element_by_xpath('./../../..')
         for query, value in fill_dict.items():
@@ -126,12 +123,12 @@ def fill_input():
 
 def finish():
     WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located((By.CLASS_NAME, 'el-checkbox__inner'))).click()
-    save = driver.find_element_by_xpath('//button/span[contains(text(),"保存")]').click()
+        EC.presence_of_element_located((By.CLASS_NAME, ''))).click()
+    save = driver.find_element_by_xpath('').click()
     time.sleep(2)
     WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located((By.XPATH, '//div[@class="el-message-box__btns"]/button[2]/span[contains(text(),"提交")]')))
-    driver.find_element_by_xpath('//div[@class="el-message-box__btns"]/button[2]/span[contains(text(),"提交")]/..').click()
+        EC.presence_of_element_located((By.XPATH, '')))
+    driver.find_element_by_xpath('').click()
     time.sleep(1)
 
 def submit():
@@ -146,10 +143,10 @@ def submit():
 
 def go_to_check():
     WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located((By.XPATH, '//div/span[contains(text(), "申请历史")]')))
-    driver.find_element_by_xpath('//div[@class="el-card__body"]/span[contains(text(), "申请历史")]/..').click()
+        EC.presence_of_element_located((By.XPATH, '')))
+    driver.find_element_by_xpath('').click()
     WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CLASS_NAME, 'cell')))
+        EC.presence_of_element_located((By.CLASS_NAME, '')))
 
 def check_today():
     today = datetime.date.today()
@@ -157,11 +154,11 @@ def check_today():
     tomorrow = tomorrow.strftime("%Y%m%d")
     try:
         date = WebDriverWait(driver, 5).until(
-            EC.presence_of_element_located((By.XPATH, f'//td/div[contains(text(), "{tomorrow}")]/..')))  
-        submission = date.find_element_by_xpath('following-sibling::td[2]/div')
+            EC.presence_of_element_located((By.XPATH, f'"{tomorrow}"')))  
+        submission = date.find_element_by_xpath('')
         print('正在检查{0}的申请状态'.format(tomorrow))
         print('提交状态: {0}'.format(submission.text.strip()))
-        qualification = date.find_element_by_xpath('following-sibling::td[3]/div')
+        qualification = date.find_element_by_xpath('')
         print('审核状态: {0}'.format(qualification.text.strip()))
         return qualification.text.strip()
     except:
