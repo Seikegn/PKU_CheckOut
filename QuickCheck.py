@@ -1,6 +1,7 @@
 # -*- coding: utf-8
 #Author: Seikegn Yang
 #Contact: seikegn_yang@163.com
+#Github: https://github.com/Seikegn
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -192,11 +193,10 @@ if __name__ == '__main__':
     except:
         print('MyInfo.txt填写有误，请检查')
 
-    #chrome_options = Options()
-    #chrome_options.add_argument('--headless')
-    #chrome_options.add_argument('--disable-gpu')
-    driver = webdriver.Chrome(os.path.join(base,'chromedriver.exe'))#,chrome_options=chrome_options)
-    #driver = webdriver.PhantomJS(os.path.join(base,'phantomjs/bin/phantomjs.exe'))
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--disable-gpu')
+    driver = webdriver.Chrome(os.path.join(base,'chromedriver.exe'),chrome_options=chrome_options)
     if auto == 1:
         print('\n正在自动报备')
         try:
@@ -238,4 +238,3 @@ if __name__ == '__main__':
                 driver.quit()
                 break
             time.sleep(1)
-
