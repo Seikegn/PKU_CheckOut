@@ -44,7 +44,7 @@ def login(userName, password, retry=0):
         print('门户登录成功！')
     except:
         print('Retrying...')
-        login(driver, userName, password, retry + 1)
+        login(userName, password, retry + 1)
 
 def go_to_simso():
     driver.find_element_by_id('all').click()
