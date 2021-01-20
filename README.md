@@ -1,6 +1,11 @@
 ### **PKU_CheckOut**
 # 用于北大2021.1.7后至今往返畅春园的一键报备
 
+# **停用**
+
+为避免自动报备导致少数同学不及时更改行程信息，本人积极主动下架项目源代码，大家多多相互提醒记得报备就好。在此撤除MyInfo.txt和chromedriver.exe文件以保证代码无法运行，仅保留编程框架作为selenium项目的学习参考。
+
+
 ## **背景**
 
 本项目受[Bruuuuuuce/PKUAutoSubmit](https://github.com/Bruuuuuuce/PKUAutoSubmit)启发，一方面为了学习selenium，一方面为了方便日常报备。原项目中**login**部分几乎照搬，余下部分均有不同，一些因网页结构变化，一些因代码逻辑习惯差别。由于selenium不再维护phantomJS，本项目采用chromedriver并默认设置为无头模式。
