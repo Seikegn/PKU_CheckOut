@@ -207,7 +207,7 @@ if __name__ == '__main__':
     chrome_options = Options()
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
-    driver = webdriver.Chrome(os.path.join(base,'chromedriver.exe'))#,chrome_options=chrome_options)
+    driver = webdriver.Chrome(os.path.join(base,'chromedriver.exe'),chrome_options=chrome_options)
     if auto == 1:
         print('\n正在自动报备')
         try:
